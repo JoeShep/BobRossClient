@@ -1,0 +1,15 @@
+nav {
+  height: 4em;
+  background-color: lightskyblue;
+  display: flex;
+  flex-direction: row;
+}
+
+nav li {
+  list-style: none;
+  display: inline-block;
+}
+
+nav h3 {
+  margin-right: 8px;
+}
