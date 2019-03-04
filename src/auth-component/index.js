@@ -3,7 +3,6 @@ import "./auth.css";
 
 class Auth extends Component {
 
-
   setAuthState(userObj) {
     this.props.setAuthState(userObj)
   }
@@ -32,7 +31,8 @@ class Auth extends Component {
       .then((tokenObj) => {
         console.log("converted token", tokenObj.token);
         localStorage.setItem("token", tokenObj.token)
-        localStorage.setItem("user", this.props.authState.first_name)
+        localStorage.setItem("user", this.props.authState.username)
+        console.log("local s user?", localStorage.getItem("user"))
         return this.setAuthState({
           user: this.props.authState.username,
           username: "",
@@ -55,7 +55,11 @@ class Auth extends Component {
       first_name,
       last_name,
       email,
-      password
+      password,
+      street,
+      city,
+      state,
+      zip
     } = this.props.authState;
 
     const user = {
@@ -63,7 +67,11 @@ class Auth extends Component {
       first_name,
       last_name,
       email,
-      password
+      password,
+      street,
+      city,
+      state,
+      zip
     };
     this.postAuth("register", user)
     .then( () => {
@@ -73,7 +81,7 @@ class Auth extends Component {
   }
 
   logIn() {
-    console.log('log IN', localStorage.getItem("token"));
+    console.log('log in', localStorage.getItem("token"));
     const user = {
       username: this.props.authState.username,
       password: this.props.authState.password
@@ -85,7 +93,7 @@ class Auth extends Component {
   }
 
   render() {
-    const {username, first_name, last_name, email, password, register } = this.props.authState;
+    const {username, first_name, last_name, email, password, street, city, state, zip, register } = this.props.authState;
     return (
       <div>
         {/* https://blog.stvmlbrn.com/2017/04/07/submitting-form-data-with-react.html */}
@@ -110,6 +118,34 @@ class Auth extends Component {
               placeholder="email"
               name="email"
               value={email}
+              onChange={e => this.onChange(e)}
+            />
+            <input
+              type="text"
+              placeholder="street address"
+              name="street"
+              value={street}
+              onChange={e => this.onChange(e)}
+            />
+            <input
+              type="text"
+              placeholder="city"
+              name="city"
+              value={city}
+              onChange={e => this.onChange(e)}
+            />
+            <input
+              type="text"
+              placeholder="state (NY)"
+              name="state"
+              value={state}
+              onChange={e => this.onChange(e)}
+            />
+            <input
+              type="text"
+              placeholder="zipcode"
+              name="zip"
+              value={zip}
               onChange={e => this.onChange(e)}
             />
           </div>
